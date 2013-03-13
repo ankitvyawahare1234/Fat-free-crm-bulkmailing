@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b To:
+  = @bmail.to
+%p
+  %b Cc:
+  = @bmail.cc
+%p
+  %b Bcc:
+  = @bmail.bcc
+%p
+  %b Subject:
+  = @bmail.subject
+%p
+  %b Body:
+  = @bmail.body
+
+= link_to 'Edit', edit_bmail_path(@bmail)
+\|
+= link_to 'Back', bmails_path

@@ -1,0 +1,26 @@
+%h3 Campaign Promo
+%br
+= form_for @bmail do |f|
+  - if @bmail.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@bmail.errors.count, "error")} prohibited this bmail from being saved:"
+      %ul
+        - @bmail.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :to
+    = select_tag :l, options_for_select(collectlead), {:multiple => true, :style => "height:80px;width:550px;" }
+  
+  .field
+  %br
+    = f.label :subject
+    = f.text_field :subject, :size=>"65*39"
+  .field
+  %br
+    = cktext_area :body, :body, :ckeditor => {:uiColor => "#AADC6E", :toolbar => "mini"} 
+    %br
+  .actions
+    = f.submit 'Send'
+
+//= link_to 'Back', bmails_path

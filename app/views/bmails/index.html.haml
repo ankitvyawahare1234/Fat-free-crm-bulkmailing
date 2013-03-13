@@ -1,0 +1,27 @@
+%h1 Listing bmails
+
+%table
+  %tr
+    %th To
+    %th Cc
+    %th Bcc
+    %th Subject
+    %th Body
+    %th
+    %th
+    %th
+
+  - @bmails.each do |bmail|
+    %tr
+      %td= bmail.to
+      %td= bmail.cc
+      %td= bmail.bcc
+      %td= bmail.subject
+      %td= bmail.body
+      %td= link_to 'Show', bmail
+      %td= link_to 'Edit', edit_bmail_path(bmail)
+      %td= link_to 'Destroy', bmail, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Bmail', new_bmail_path

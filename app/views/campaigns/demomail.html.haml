@@ -1,0 +1,30 @@
+= simple_form_for(:Bmail, :html => one_submit_only(:campaign), :remote => true) do |f|
+ 
+  = f.hidden_field :user_id
+
+  = f.error_messages :object_name => t('campaign')
+
+ 
+  .field
+    = f.label :To
+    = f.text_field :to
+  .field
+    = f.label :cc
+    = f.text_field :cc
+  .field
+    = f.label :bcc
+    = f.text_field :bcc
+  .field
+    = f.label :subject
+    = f.text_field :subject
+  .field
+    = f.label :body
+    %br
+    = f.text_area :body
+  .actions
+    = f.submit "Send All"
+
+  .buttonbar
+    = f.submit t(:create_campaign)
+    #{t :or}
+    = link_to_cancel new_campaign_path

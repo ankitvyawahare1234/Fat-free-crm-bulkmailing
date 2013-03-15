@@ -45,9 +45,13 @@
 //= require format_buttons
 //= require_self
 //= require ckeditor/init
+validateForm = function() {
+  alert("Hi...");
+};
 
 <%
 Gem.loaded_specs.keys.grep(/^ffcrm_/).each do |plugin|
   require_asset(plugin) rescue Sprockets::FileNotFound
 end
 %>
+

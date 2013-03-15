@@ -43,15 +43,16 @@ class BmailsController < ApplicationController
     @bmail = Bmail.new(params[:bmail])
     @bmail.to = params[:l] 
     @bmail.cc = params[:lc]
-    @bmail.body = params[:body]
-      if @bmail.save
+    @bmail.body = params[:body][:body]
+      if ((!params[:l].blank?) && @bmail.save)
         redirect_to :campaigns, notice: 'Mail was successfully send.'
         #format.json { render json: @bmail, status: :created, location: @bmail }
         p "==================================="
         p params[:l]
         p @bmail.body
+        p !params[:l].blank?
         p "=================================="
-      
+      ProgressBar.create(:title => "Items", :starting_at => 20, :total => 200)
       params[:l].each do |single_email|
         p single_email
         Pony.mail(:to => single_email, :from => 'ankit.vyawahare@pragtech.co.in', :subject => @bmail.subject, 

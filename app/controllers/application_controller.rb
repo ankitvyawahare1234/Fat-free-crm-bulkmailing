@@ -36,6 +36,12 @@ class ApplicationController < ActionController::Base
 
   # Common auto_complete handler for all core controllers.
   #----------------------------------------------------------------------------
+  before_filter :beforeFilter
+
+ def beforeFilter
+    $request = request
+ end
+ 
   def auto_complete
     @query = params[:auto_complete_query] || ''
     @auto_complete = hook(:auto_complete, self, :query => @query, :user => current_user)

@@ -1,6 +1,6 @@
 %h3 Campaign Promo
 %br
-= form_for @bmail, :html => { :onsubmit => "return validateForm();" } do |f|
+= form_for @bmail, :html => { :id => "form_id", :onsubmit => "return validateForm();" } do |f|
   - if @bmail.errors.any?
     #error_explanation
       %h2= "#{pluralize(@bmail.errors.count, "error")} prohibited this bmail from being saved:"
@@ -21,7 +21,7 @@
     = cktext_area :body, :body, :ckeditor => {:uiColor => "#AADC6E", :toolbar => "mini"} 
     %br
   .actions
-    = f.submit 'Send'
+    = f.submit 'Send', :id => 'send_id'
 :javascript
   validateForm = function() {
   var selected_value = document.getElementById('l').value;
@@ -29,6 +29,12 @@
   {
     alert("Please select atleast one email-id..");
     return false; 
+  }
+  else
+  {
+    $("#send_id").click(function() {
+    alert("I");
+  });
   }
   }
 //= link_to 'Back', bmails_path

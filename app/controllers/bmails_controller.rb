@@ -52,7 +52,6 @@ class BmailsController < ApplicationController
         p @bmail.body
         p !params[:l].blank?
         p "=================================="
-      ProgressBar.create(:title => "Items", :starting_at => 20, :total => 200)
       params[:l].each do |single_email|
         p single_email
         Pony.mail(:to => single_email, :from => 'ankit.vyawahare@pragtech.co.in', :subject => @bmail.subject, 

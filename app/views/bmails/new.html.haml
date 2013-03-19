@@ -22,7 +22,7 @@
     %br
   .actions
     = f.submit 'Send', :id => 'send_id'
-  = image_tag 'progress.gif', :id => 'loading_image'
+  = image_tag 'progress.gif', :id => 'loading_image', :style => "display: none";
 
 :javascript
   validateForm = function() {
@@ -35,8 +35,8 @@
   else
   {
     alert("I am in Else part...");
-    $('#loading_image').show();
-    alert("After loading image");
+    //$('#loading_image').show();
+    document.getElementById('loading_image').style.display = "block";
     var url = "/bmails"; 
     $.ajax({
            type: "POST",
@@ -44,7 +44,7 @@
            data: $("#form_id").serialize(), 
            success: function(data)
            {
-              $('#loading_image').show();
+              $('#loading_image').hide();
                alert(data); 
            }
          });

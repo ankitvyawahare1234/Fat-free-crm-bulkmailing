@@ -64,7 +64,6 @@ class BmailsController < ApplicationController
       :authentication => 'plain', 
       :enable_starttls_auto => true 
 })    end
-      
       else
         format.html { render action: "new" }
         format.json { render json: @bmail.errors, status: :unprocessable_entity }

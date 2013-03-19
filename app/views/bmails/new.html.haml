@@ -22,6 +22,8 @@
     %br
   .actions
     = f.submit 'Send', :id => 'send_id'
+  = image_tag 'progress.gif', :id => 'loading_image'
+
 :javascript
   validateForm = function() {
   var selected_value = document.getElementById('l').value;
@@ -32,9 +34,23 @@
   }
   else
   {
-    $("#send_id").click(function() {
-    alert("I");
-  });
+    alert("I am in Else part...");
+    $('#loading_image').show();
+    alert("After loading image");
+    var url = "/bmails"; 
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: $("#form_id").serialize(), 
+           success: function(data)
+           {
+              $('#loading_image').show();
+               alert(data); 
+           }
+         });
+
+      // avoid to execute the actual submit of the form.
+  
   }
   }
 //= link_to 'Back', bmails_path

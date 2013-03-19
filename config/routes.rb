@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   match 'profile'    => 'users#show',              :as => :profile
   match 'signup'     => 'users#new',               :as => :signup
 
+
+  match "bmails_check_progress_bar_status"  => 'bmails#bmails_check_progress_bar_status'
+
   match '/home/options',  :as => :options
   match '/home/toggle',   :as => :toggle
   match '/home/timeline', :as => :timeline

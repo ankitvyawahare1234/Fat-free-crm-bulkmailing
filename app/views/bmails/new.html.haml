@@ -22,8 +22,10 @@
     %br
   .actions
     = f.submit 'Send', :id => 'send_id'
+#overlay
   = image_tag 'progress.gif', :id => 'loading_image', :style => "display: none";
-
+  #progress
+   
 :javascript
   validateForm = function() {
   var selected_value = document.getElementById('l').value;
@@ -38,6 +40,10 @@
     //$('#loading_image').show();
     document.getElementById('loading_image').style.display = "block";
     var url = "/bmails"; 
+     $(function() {
+     $("#progressbar").progressbar({ value: 0 });
+     setTimeout(updateProgress, 500);
+     });
     $.ajax({
            type: "POST",
            url: url,
@@ -53,4 +59,27 @@
   
   }
   }
+   
+  function updateProgress() {
+  var progress;
+  progress = $("#progressbar")
+   .progressbar("option","value");
+   if (progress < 100) {
+     $("#progressbar")
+        
+
+           var url = "/bmails_check_progress_bar_status"; 
+         $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#form_id").serialize(), 
+            success: function(data)
+            { 
+                
+              $("#progressbar").progressbar({ value: 50 });
+
+            }
+  });
+
+
 //= link_to 'Back', bmails_path

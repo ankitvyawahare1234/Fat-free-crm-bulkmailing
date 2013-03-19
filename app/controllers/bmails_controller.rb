@@ -86,6 +86,13 @@ class BmailsController < ApplicationController
     end
   end
 
+
+   def bmails_check_progress_bar_status
+       p "this iks the methoid"
+   end
+
+
+
   # DELETE /bmails/1
   # DELETE /bmails/1.json
   def destroy

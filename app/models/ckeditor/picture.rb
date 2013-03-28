@@ -1,6 +1,6 @@
 class Ckeditor::Picture < Ckeditor::Asset
   has_attached_file :data,
-                     :url  => ("http://" + $request.host_with_port + "/assets/ckeditor_assets/pictures/:id/:style_:basename.:extension"),
+                    :url  => ("http://" + $request.host_with_port + "/assets/ckeditor_assets/pictures/:id/:style_:basename.:extension"),
                      :path => ":rails_root/app/assets/images/ckeditor_assets/pictures/:id/:style_:basename.:extension",
                     :styles => { :content => '800>', :thumb => '118x100#' }
 

@@ -22,10 +22,13 @@
     %br
   .actions
     = f.submit 'Send', :id => 'send_id'
-#overlay
-  = image_tag 'progress.gif', :id => 'loading_image', :style => "display: none";
-  #progress
-   
+  
+    = image_tag 'progress.gif', :id => 'loading_image', :style => "display: none;width:20px;height:20px";
+  #progressbar
+  #progressbarresponse
+  #emailsentcount
+
+
 :javascript
   validateForm = function() {
   var selected_value = document.getElementById('l').value;
@@ -36,50 +39,53 @@
   }
   else
   {
-    alert("I am in Else part...");
-    //$('#loading_image').show();
-    document.getElementById('loading_image').style.display = "block";
+   
     var url = "/bmails"; 
-     $(function() {
-     $("#progressbar").progressbar({ value: 0 });
-     setTimeout(updateProgress, 500);
-     });
-    $.ajax({
+     $.ajax({
            type: "POST",
            url: url,
            data: $("#form_id").serialize(), 
            success: function(data)
            {
-              $('#loading_image').hide();
-               alert(data); 
+                alert("In ajax function");               
            }
          });
-
+    $(function() {
+      $("#progressbar").progressbar({ value: 0 });
+      setTimeout(updateProgress, 2000);
+    });
+    
       // avoid to execute the actual submit of the form.
   
   }
+     return false;
+  }
+  
+
+  function updateProgress() {
+   var progress;
+   progress = $("#progressbar")
+    .progressbar("option","value");
+    if (progress < 100) {
+      $("#progressbar")
+             var url = "/bmails_check_progress_bar_status"; 
+             $.ajax({
+             type: "POST",
+             url: url,
+             data: $("#form_id").serialize(),
+             success: function(data)
+             { 
+                  $("#progressbarresponse").html(data);
+
+                //$("#progressbar").progressbar({ value: parseInt(data) });
+                 
+              }
+           });
+           setTimeout(updateProgress, 2000);
+     }
   }
    
-  function updateProgress() {
-  var progress;
-  progress = $("#progressbar")
-   .progressbar("option","value");
-   if (progress < 100) {
-     $("#progressbar")
-        
-
-           var url = "/bmails_check_progress_bar_status"; 
-         $.ajax({
-            type: "POST",
-            url: url,
-            data: $("#form_id").serialize(), 
-            success: function(data)
-            { 
-                
-              $("#progressbar").progressbar({ value: 50 });
-
-            }
+  $(document).ajaxSend(function(e, xhr, options) {
+    var token = $("meta[name='csrf-token']").attr('content');
+    xhr.setRequestHeader('X-CSRF-Token', token);
   });
-
-
-//= link_to 'Back', bmails_path

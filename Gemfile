@@ -2,7 +2,8 @@ source :rubygems
 
 # Uncomment the database that you have configured in config/database.yml
 # ----------------------------------------------------------------------
- 
+ gem 'css3-progress-bar-rails'
+
  gem 'mysql2', '0.3.10'
 # gem 'sqlite3'
 # gem 'pg', '~> 0.13.2'

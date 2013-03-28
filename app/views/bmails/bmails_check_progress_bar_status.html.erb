@@ -1,0 +1,8 @@
+<script> 
+$("#progressbar").progressbar({ value:  <%=@count%>  });
+
+$('#loading_image').hide();
+
+$('#emailsentcount').html("Total Email Sent was "+<%=session[:count]%>);
+
+ </script>

@@ -22,6 +22,7 @@
  *= require select2
  *= require modalbox
  *= require facebooklist
+ *= require 'css3-progress-bar'
  *= require rails
  *= require safari
  *= require base

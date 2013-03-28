@@ -1,6 +1,7 @@
 class BmailsController < ApplicationController
   # GET /bmails
   # GET /bmails.json
+  @progress_count
   def index
     @bmails = Bmail.all
 
@@ -27,7 +28,7 @@ class BmailsController < ApplicationController
     @bmail = Bmail.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :layout => "customlayout" }
       format.json { render json: @bmail }
     end
   end
@@ -45,13 +46,23 @@ class BmailsController < ApplicationController
     @bmail.cc = params[:lc]
     @bmail.body = params[:body][:body]
       if ((!params[:l].blank?) && @bmail.save)
-        redirect_to :campaigns, notice: 'Mail was successfully send.'
+        #redirect_to :campaigns, notice: 'Mail was successfully send.'
         #format.json { render json: @bmail, status: :created, location: @bmail }
         p "==================================="
         p params[:l]
         p @bmail.body
         p !params[:l].blank?
         p "=================================="
+        p params[:l].count
+        p "this is the count of emailsss123"
+        p params[:l].split(",").class
+        p params[:l].split(",").size
+        session[:count] = params[:l].count
+        session[:count_sent] = params[:l].count
+        p    session[:count]
+        p    session[:count_sent]
+        p "is this sessions created" 
+          
       params[:l].each do |single_email|
         p single_email
         Pony.mail(:to => single_email, :from => 'ankit.vyawahare@pragtech.co.in', :subject => @bmail.subject, 
@@ -63,11 +74,17 @@ class BmailsController < ApplicationController
       :password => 'ursoosweetankit12', 
       :authentication => 'plain', 
       :enable_starttls_auto => true 
-})    end
+})    
+       session[:count_sent] = session[:count_sent] - 1  
+      
+        end
+         
       else
         format.html { render action: "new" }
         format.json { render json: @bmail.errors, status: :unprocessable_entity }
+
       end
+   render :nothing=>true
   end
 
   # PUT /bmails/1
@@ -86,13 +103,6 @@ class BmailsController < ApplicationController
     end
   end
 
-
-   def bmails_check_progress_bar_status
-       p "this iks the methoid"
-   end
-
-
-
   # DELETE /bmails/1
   # DELETE /bmails/1.json
   def destroy
@@ -102,6 +112,24 @@ class BmailsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to bmails_url }
       format.json { head :no_content }
+    end
+  end
+
+  def bmails_check_progress_bar_status
+      
+       
+ 
+        
+      @count = (session[:count_sent].to_i * 100)/session[:count].to_i
+      if session[:count_sent].to_i == 0
+         @count = 100
+      end
+      @email_sent = session[:count]
+     respond_to do |format|
+      format.html { render :layout=>false }
+      format.json { head :no_content }
+      format.js { render :layout=>false }
+
     end
   end
 end

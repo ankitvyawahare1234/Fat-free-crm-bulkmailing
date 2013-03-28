@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
 
-  mount Ckeditor::Engine => '/ckeditor'
-
+  mount Ckeditor::Engine => "/ckeditor"
   resources :bmails
-  # match "/progress", :to=> "bmails#bmails_check_progress_bar_status" 
+   
   post "bmails/new"
   get "bmails/new"
-  match "/bmails_check_progress_bar_status"  => 'bmails#bmails_check_progress_bar_status'
-  post "bmails/bmails_check_progress_bar_status"
-  get "bmails/bmails_check_progress_bar_status"
+
+  
+
   get "/campaigns/demomail"
   post "/campaigns/demomail"#'/campaigns/demomail' => 'campaigns#demomail'
   resources :lists
@@ -21,6 +20,9 @@ Rails.application.routes.draw do
   match 'logout'     => 'authentications#destroy', :as => :logout
   match 'profile'    => 'users#show',              :as => :profile
   match 'signup'     => 'users#new',               :as => :signup
+
+
+  match "bmails_check_progress_bar_status"  => 'bmails#bmails_check_progress_bar_status'
 
   match '/home/options',  :as => :options
   match '/home/toggle',   :as => :toggle
